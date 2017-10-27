@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>{% block title %}{% endblock %} - A^3 Menu System</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      <!-- &copy; Copyright 2017 by <a href="http://anthonyattard.com/">Anthony Attard</a>. -->
+      {% endblock %}
+    </div>
+  </body>
+</html>
