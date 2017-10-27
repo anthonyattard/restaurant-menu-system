@@ -1,11 +1,21 @@
 <html>
 <body>
-    <h1>Restaurants</h1>
-    <a href='#'>Add a new menu item</a></br></br>
-    {% for menu_item in menu_items %}
-    {{ menu_item.name }} -
-    {{ menu_item.price }}</br>
-    {{ menu_item.description }}</br></br>
-    {% endfor %}
+    <h1>Menu</h1>
+    <a href="{{ url_for('newMenuItem', restaurant_id=restaurant_id) }}">Add a new menu item</a></br>
+    <a href="{{ url_for('showRestaurants') }}">Go back to restaurant list</a></br></br>
+    {% if menu_items %}
+        {% for menu_item in menu_items %}
+            {{ menu_item.name }} -
+            {{ menu_item.price }}</br>
+            {{ menu_item.description }}</br>
+            {{ menu_item.course }}</br>
+            <a href="{{ url_for('editMenuItem', restaurant_id=restaurant_id, menu_id=menu_item.id) }}">Edit</a>
+            </br>
+            <a href="{{ url_for('deleteMenuItem', restaurant_id=restaurant_id, menu_id=menu_item.id) }}">Delete</a>
+            </br></br>
+        {% endfor %}
+    {% else %}
+        There are no menu items.
+    {% endif %}
 </body>
 </html>

@@ -8,7 +8,10 @@
     <input type='text' size='30' name='price' placeholder="{{ menu_item.price }}">
     <p>Description:</p>
     <input type='text' size='30' name='description' placeholder="{{ menu_item.description }}">
+    <p>Course:</p>
+    <input type='text' size='30' name='course' placeholder="{{ menu_item.course }}">
     <input type='submit' value='Edit'>
+    <a href="{{ url_for('showMenu', restaurant_id=restaurant_id) }}">Cancel</a>
     </form>
 </body>
 </html>

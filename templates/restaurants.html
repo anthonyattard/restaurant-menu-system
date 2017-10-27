@@ -1,6 +1,12 @@
 <h1>Restaurants</h1>
-{% for restaurant in restaurants %}
-    {{ restaurant.name }}</br>
-    <a href="{{url_for('editRestaurant', restaurant_id=restaurant.id)}}">Edit Restaurant</a></br>
-    <a href="{{url_for('deleteRestaurant', restaurant_id=restaurant.id)}}">Delete Restaurant</a></br></br></br>
-{% endfor %}
+<a href="{{ url_for('newRestaurant') }}">Add a Restaurant</a></br></br>
+{% if restaurants %}
+    {% for restaurant in restaurants %}
+        {{ restaurant.name }}</br>
+        <a href="{{url_for('showMenu', restaurant_id=restaurant.id)}}">View Menu</a></br>
+        <a href="{{url_for('editRestaurant', restaurant_id=restaurant.id)}}">Edit Restaurant</a></br>
+        <a href="{{url_for('deleteRestaurant', restaurant_id=restaurant.id)}}">Delete Restaurant</a></br></br></br>
+    {% endfor %}
+{% else %}
+    There are no restaurants.
+{% endif %}
