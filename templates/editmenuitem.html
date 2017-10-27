@@ -1,17 +1,18 @@
-<html>
-<body>
+{% extends "layout.html" %}
+{% block title %}Edit Menu Item{% endblock %}
+
+{% block content %}
     <h1>Edit Menu Item</h1>
     <form action="#" method="POST">
     <p>Name:</p>
-    <input type='text' size='30' name='name' placeholder="{{ menu_item.name }}">
+        <input type='text' size='30' name='name' placeholder="{{ menu_item.name }}">
     <p>Price:</p>
-    <input type='text' size='30' name='price' placeholder="{{ menu_item.price }}">
+        <input type='text' size='30' name='price' placeholder="{{ menu_item.price }}">
     <p>Description:</p>
-    <input type='text' size='30' name='description' placeholder="{{ menu_item.description }}">
+        <input type='text' size='30' name='description' placeholder="{{ menu_item.description }}">
     <p>Course:</p>
-    <input type='text' size='30' name='course' placeholder="{{ menu_item.course }}">
+        <input type='text' size='30' name='course' placeholder="{{ menu_item.course }}">
     <input type='submit' value='Edit'>
     <a href="{{ url_for('showMenu', restaurant_id=restaurant_id) }}">Cancel</a>
     </form>
-</body>
-</html>
+{% endblock %}

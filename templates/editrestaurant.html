@@ -1,7 +1,12 @@
-<h1>Edit Restaurant</h1>
-<form action="#" method= 'post'>
-    <p>Name:</p>
-    <input type='text' size='30' name='name' placeholder='{{ restaurant.name }}'>
-<input type='submit' value='Edit'>
-<a href="{{ url_for('showRestaurants') }}">Cancel</a>
-</form>
+{% extends "layout.html" %}
+{% block title %}Edit Restaurant{% endblock %}
+
+{% block content %}
+    <h1>Edit Restaurant</h1>
+    <form action="#" method= 'post'>
+        <p>Name:</p>
+        <input type='text' size='30' name='name' placeholder='{{ restaurant.name }}'>
+    <input type='submit' value='Edit'>
+    <a href="{{ url_for('showRestaurants') }}">Cancel</a>
+    </form>
+{% endblock %}

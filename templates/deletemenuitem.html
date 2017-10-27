@@ -1,5 +1,10 @@
-<h1>Are you sure you want to delete {{ menu_item.name }}?</h1>
-<form action="#" method= 'post'>
-    <input type='submit' value='Delete'>
-    <a href="{{ url_for('showMenu', restaurant_id=restaurant_id) }}">Cancel</a>
-</form>
+{% extends "layout.html" %}
+{% block title %}Delete Restaurant{% endblock %}
+
+{% block content %}
+    <h1>Are you sure you want to delete {{ menu_item.name }}?</h1>
+    <form action="#" method= 'post'>
+        <input type='submit' value='Delete'>
+        <a href="{{ url_for('showMenu', restaurant_id=restaurant_id) }}">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,16 +1,18 @@
-<html>
-<body>
-    <h1>New Menu Item</h1>
+{% extends "layout.html" %}
+{% block title %}Add Menu Item{% endblock %}
+
+{% block content %}
+    <h1>Add Menu Item</h1>
     <form action="#" method="POST">
-    <p>Name:</p>
-    <input type='text' size='30' name='name'>
-    <p>Price:</p>
-    <input type='text' size='30' name='price'>
-    <p>Description:</p>
-    <input type='text' size='30' name='description'>
-    <p>Course:</p>
-    <input type='text' size='30' name='course'>
-    <input type='submit' value='Create'>
+        <p>Name:</p>
+        <input type='text' size='30' name='name'>
+        <p>Price:</p>
+        <input type='text' size='30' name='price'>
+        <p>Description:</p>
+        <input type='text' size='30' name='description'>
+        <p>Course:</p>
+        <input type='text' size='30' name='course'>
+        <input type='submit' value='Create'>
+        <a href="{{ url_for('showMenu', restaurant_id=restaurant_id) }}">Cancel</a>
     </form>
-</body>
-</html>
+{% endblock %}
