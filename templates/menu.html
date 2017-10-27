@@ -1,0 +1,11 @@
+<html>
+<body>
+    <h1>Restaurants</h1>
+    <a href='#'>Add a new menu item</a></br></br>
+    {% for menu_item in menu_items %}
+    {{ menu_item.name }} -
+    {{ menu_item.price }}</br>
+    {{ menu_item.description }}</br></br>
+    {% endfor %}
+</body>
+</html>
