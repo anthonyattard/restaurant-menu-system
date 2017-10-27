@@ -7,7 +7,20 @@
     {% endblock %}
   </head>
   <body>
-    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="content">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class="flash">
+        <ul>
+          {% for message in messages %}
+          <li><strong>{{message}}</strong></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% endwith %}
+{% block content %}{% endblock %}
+    </div>
     <div id="footer">
       {% block footer %}
       <!-- &copy; Copyright 2017 by <a href="http://anthonyattard.com/">Anthony Attard</a>. -->

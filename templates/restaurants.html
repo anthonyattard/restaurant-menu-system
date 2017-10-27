@@ -12,7 +12,7 @@
                 <p><a href="{{url_for('deleteRestaurant', restaurant_id=restaurant.id)}}">Delete Restaurant</a></p></br>
             {% endfor %}
         {% else %}
-            There are no restaurants.
+            <p>There are no restaurants.</p>
         {% endif %}
     </div>
 {% endblock %}
