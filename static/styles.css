@@ -116,23 +116,27 @@ h3 {
 .banner h1 {
     margin: 45px 0;
 }
- .restaurant-list {
+
+.restaurant-list {
     background-color: #F0F0F0;
     padding: 20px;
-u }
- .restaurant-list:hover {
+}
+.restaurant-list:hover {
     background-color: #e1e17f;
     padding: 20px;
 }
+
 .menu-item {
     background: #F0F0F0;
     padding: 20px;
     margin: 20px;
     margin-left: -20px;
 }
+
 .menu-price {
     font-weight: 700;
 }
+
 .creator {
     padding-right: 20px;
     margin-top: -20px;
@@ -149,15 +153,14 @@ u }
     font-weight: 400;
     margin-top: -20px;
 }
+
 .flash {
     background-color: #98FB98;
     width:100%;
     text-decoration: none;
-
 }
 
 .flash li {
     list-style-type: none;
     text-align: center;
-
 }
