@@ -2,6 +2,8 @@
 <html>
   <head>
     {% block head %}
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     {% block headlinks %}{% endblock %}
     <title>{% block title %}{% endblock %} - A&#179; Menu System</title>
@@ -9,18 +11,7 @@
   </head>
   <body>
     <div id="content">
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      <div class="flash">
-        <ul>
-          {% for message in messages %}
-          <li><strong>{{message}}</strong></li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-      {% endwith %}
-{% block content %}{% endblock %}
+    {% block content %}{% endblock %}
     </div>
     <div id="footer">
       {% block footer %}
