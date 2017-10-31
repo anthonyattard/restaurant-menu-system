@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, MenuItem
+from database_setup import Base, Restaurant, MenuItem, User
 
 from flask import session as login_session
 import random, string
@@ -19,7 +19,7 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
 
-engine = create_engine('sqlite:///restaurantmenu.db')
+engine = create_engine('sqlite:///restaurantmenuwithusers.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -103,6 +103,12 @@ def gconnect():
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
+    # Create user in local db if users doesn't already exist. Otherwise, do nothing.
+    user_id = getUserID(login_session['email'])
+    if not user_id:
+        user_id = createUser(login_session)
+    login_session['user_id'] = user_id
+
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -144,6 +150,26 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
+# User Helper Functions
+def createUser(login_session):
+    newUser = User(name=login_session['username'], email = login_session['email'], 
+                    picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    return user.id
+
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    return user
+
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
+
 @app.route('/')
 @app.route('/restaurant')
 @app.route('/restaurants')
@@ -158,7 +184,8 @@ def newRestaurant():
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
-        newRest = Restaurant(name = request.form['name'])
+        newRest = Restaurant(name = request.form['name'],
+            user_id=login_session['user_id'])
         session.add(newRest)
         session.commit()
         flash('Restaurant added')
@@ -211,7 +238,8 @@ def newMenuItem(restaurant_id):
     if request.method == 'POST':
         newItem = MenuItem(
                 name=request.form['name'], description=request.form['description'], 
-                price=request.form['price'], course=request.form['course'], restaurant_id=restaurant_id)
+                price=request.form['price'], course=request.form['course'], restaurant_id=restaurant_id,
+                user_id=restaurant.user_id)
         session.add(newItem)
         session.commit()
         flash('Menu item added')
