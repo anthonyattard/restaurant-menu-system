@@ -6,6 +6,7 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+<!-- GOOGLE SIGN IN-->
 <div id="signinButton">
     <span class="g-signin"
         data-scope="openid email"
@@ -48,6 +49,7 @@ function signInCallback(authResult) {
 }
 }
 </script>
+<!--END GOOGLE SIGN IN -->
 
 <!--FACEBOOK SIGN IN -->
 <script>
@@ -100,16 +102,10 @@ function signInCallback(authResult) {
   }
 </script>
 
-
 <button>
-         
-
-          <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-<a href='javascript:sendTokenToServer()'>Login with Facebook</a>
-
-</fb:login-button>
-
-
-        </button>
+  <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
+    <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
+  </fb:login-button>
+</button>
 <!--END FACEBOOK SIGN IN -->
 {% endblock %}
