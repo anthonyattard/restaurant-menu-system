@@ -121,8 +121,7 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px; border-radius: 150px;' \
-                '-webkit-border-radius: 150px; -moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
@@ -168,7 +167,6 @@ def fbconnect():
     access_token = request.data
     print "access token received %s " % access_token
 
-
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
     app_secret = json.loads(
@@ -177,7 +175,6 @@ def fbconnect():
         app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
-
 
     # Use token to get user info from API
     userinfo_url = "https://graph.facebook.com/v2.8/me"
@@ -236,7 +233,7 @@ def fbdisconnect():
     facebook_id = login_session['facebook_id']
     # The access token must me included to successfully logout
     access_token = login_session['access_token']
-    url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (facebook_id,access_token)
+    url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (facebook_id, access_token)
     h = httplib2.Http()
     result = h.request(url, 'DELETE')[1]
     return "you have been logged out"
@@ -267,8 +264,8 @@ def disconnect():
 
 # User Helper Functions
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email = login_session['email'], 
-                    picture=login_session['picture'])
+    newUser = User(name=login_session['username'], email=login_session['email'],
+                   picture=login_session['picture'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -291,7 +288,7 @@ def getUserID(email):
 # Alert Helper Functions
 def notAuthorizedAlertBuilder(target, target2):
     message = 'You are not authorized to {0} this restaurant. ' \
-                'Please create your own restaurant in order to {1}.'.format(target, target2)
+              'Please create your own restaurant in order to {1}.'.format(target, target2)
     alert = "<script>function myFunction() {alert('%s');}</script><body onload='myFunction()''>" % message
     return alert
 
@@ -303,19 +300,19 @@ def showRestaurants():
     # return "This page will show all my restaurants"
     restaurants = session.query(Restaurant).all()
     if 'username' not in login_session:
-        return render_template('publicrestaurants.html', restaurants=restaurants,session=login_session)
+        return render_template('publicrestaurants.html', restaurants=restaurants, session=login_session)
     else:
-        return render_template('restaurants.html', restaurants=restaurants,session=login_session)
+        return render_template('restaurants.html', restaurants=restaurants, session=login_session)
 
 
-@app.route('/restaurant/new', methods=['GET','POST'])
+@app.route('/restaurant/new', methods=['GET', 'POST'])
 def newRestaurant():
     # return "This page will be for making a new restaurant"
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
-        newRest = Restaurant(name = request.form['name'],
-            user_id=login_session['user_id'])
+        newRest = Restaurant(name=request.form['name'],
+                             user_id=login_session['user_id'])
         session.add(newRest)
         session.commit()
         flash('Restaurant added')
@@ -324,7 +321,7 @@ def newRestaurant():
         return render_template('newrestaurant.html')
 
 
-@app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET','POST'])
+@app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     # return "This page will be for editing restaurant %s" % restaurant_id
     if 'username' not in login_session:
@@ -343,7 +340,7 @@ def editRestaurant(restaurant_id):
         return render_template('editrestaurant.html', restaurant=restaurant)
 
 
-@app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET','POST'])
+@app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     # return "This page will be for deleting restaurant %s" % restaurant_id
     if 'username' not in login_session:
@@ -364,17 +361,17 @@ def deleteRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
     # return "This page is the menu for restaurant %s" % restaurant_id
-    restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     creator = getUserInfo(restaurant.user_id)
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
     if 'username' not in login_session or creator.id != login_session['user_id']:
-        return render_template('publicmenu.html', items=items, 
-                                restaurant=restaurant, creator=creator)
+        return render_template('publicmenu.html', items=items,
+                               restaurant=restaurant, creator=creator)
     else:
         return render_template('menu.html', restaurant=restaurant, items=items, creator=creator)
 
 
-@app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET','POST'])
+@app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
     # return "This page is for making a new menu item for restaurant %s" % restaurant_id
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -383,10 +380,9 @@ def newMenuItem(restaurant_id):
     if login_session['user_id'] != restaurant.user_id:
         return notAuthorizedAlertBuilder("add menu items for this restaurant", "add items")
     if request.method == 'POST':
-        newItem = MenuItem(
-                name=request.form['name'], description=request.form['description'], 
-                price=request.form['price'], course=request.form['course'], restaurant_id=restaurant_id,
-                user_id=restaurant.user_id)
+        newItem = MenuItem(name=request.form['name'], description=request.form['description'],
+                           price=request.form['price'], course=request.form['course'], restaurant_id=restaurant_id,
+                           user_id=restaurant.user_id)
         session.add(newItem)
         session.commit()
         flash('Menu item added')
