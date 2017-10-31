@@ -1,22 +1,16 @@
 <!doctype html>
 <html>
-  <head>
-    {% block head %}
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    {% block headlinks %}{% endblock %}
-    <title>{% block title %}{% endblock %} - A&#179; Menu System</title>
-    {% endblock %}
-  </head>
-  <body>
-    <div id="content">
-    {% block content %}{% endblock %}
-    </div>
-    <div id="footer">
-      {% block footer %}
-      <!-- &copy; Copyright 2017 by <a href="http://anthonyattard.com/">Anthony Attard</a>. -->
-      {% endblock %}
-    </div>
-  </body>
+    <head>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        {% block headlinks %}{% endblock %}
+        <title>{% block title %}{% endblock %} - A&#179; Menu System</title>
+    </head>
+    <body>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
 </html>
