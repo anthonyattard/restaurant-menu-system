@@ -1,18 +1,44 @@
-{% extends "layout.html" %}
+{% extends "main.html" %}
 {% block title %}Restaurants{% endblock %}
-
 {% block content %}
-    <div class='pane'>
-        <h1>Restaurants</h1>
-        <a href="{{ url_for('newRestaurant') }}">Add a Restaurant</a></br></br>
-        {% if restaurants %}
-            {% for restaurant in restaurants %}
-                <a href="{{url_for('showMenu', restaurant_id=restaurant.id)}}"><p>{{ restaurant.name }}</p></a>
-                <p><a href="{{url_for('editRestaurant', restaurant_id=restaurant.id)}}">Edit Restaurant</a></p>
-                <p><a href="{{url_for('deleteRestaurant', restaurant_id=restaurant.id)}}">Delete Restaurant</a></p></br>
-            {% endfor %}
-        {% else %}
-            <p>There are no restaurants.</p>
-        {% endif %}
+{% include "header.html" %}
+    <div class="row top-menu">
+        <div class="col-md-10"></div>
+        <div class="col-md-2 text-right">
     </div>
+    </div>
+    <div class="row divider blue">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row banner main">
+        <div class="col-md-1"></div>
+        <div class="col-md-11 padding-none">
+            <h1>Restaurants</h1>
+        </div>
+    </div>
+    
+    {% include "flash.html" %}
+
+    <div class="row padding-top padding-bottom">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 padding-none">
+            <a href="{{url_for('newRestaurant')}}">
+                <button class="btn btn-default" id="new-restaurant">
+                    <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>Add Restaurant
+                </button>
+            </a>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    {% for restaurant in restaurants %}
+        <a href = "{{url_for('showMenu', restaurant_id = restaurant.id)}}">
+            <div class="row">
+                <div class="col-md-1"></div>
+                    <div class="col-md-10 restaurant-list">
+                        <h3>{{restaurant.name}}</h3>
+                    </div>
+                <div class="col-md-1"></div>
+            </div>
+        </a>
+    {% endfor %}
 {% endblock %}
