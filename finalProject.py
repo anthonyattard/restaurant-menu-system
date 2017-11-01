@@ -293,11 +293,11 @@ def notAuthorizedAlertBuilder(target, target2):
     return alert
 
 
+# Show all restaurants
 @app.route('/')
 @app.route('/restaurant')
 @app.route('/restaurants')
 def showRestaurants():
-    # return "This page will show all my restaurants"
     restaurants = session.query(Restaurant).all()
     if 'username' not in login_session:
         return render_template('publicrestaurants.html', restaurants=restaurants, session=login_session)
@@ -305,9 +305,9 @@ def showRestaurants():
         return render_template('restaurants.html', restaurants=restaurants, session=login_session)
 
 
+# Create a new restaurant
 @app.route('/restaurant/new', methods=['GET', 'POST'])
 def newRestaurant():
-    # return "This page will be for making a new restaurant"
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
@@ -321,9 +321,9 @@ def newRestaurant():
         return render_template('newrestaurant.html')
 
 
+# Edit a restaurant
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
-    # return "This page will be for editing restaurant %s" % restaurant_id
     if 'username' not in login_session:
         return redirect('/login')
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -340,9 +340,9 @@ def editRestaurant(restaurant_id):
         return render_template('editrestaurant.html', restaurant=restaurant)
 
 
+# Delete a restaurant
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
-    # return "This page will be for deleting restaurant %s" % restaurant_id
     if 'username' not in login_session:
         return redirect('/login')
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -357,10 +357,10 @@ def deleteRestaurant(restaurant_id):
         return render_template('deleterestaurant.html', restaurant=restaurantToDelete)
 
 
+# Show a restaurant menu
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
-    # return "This page is the menu for restaurant %s" % restaurant_id
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     creator = getUserInfo(restaurant.user_id)
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
@@ -371,9 +371,9 @@ def showMenu(restaurant_id):
         return render_template('menu.html', restaurant=restaurant, items=items, creator=creator)
 
 
+# Create a new menu item
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
-    # return "This page is for making a new menu item for restaurant %s" % restaurant_id
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if 'username' not in login_session:
         return redirect('/login')
@@ -391,9 +391,9 @@ def newMenuItem(restaurant_id):
         return render_template('newmenuitem.html', restaurant_id=restaurant_id)
 
 
+# Edit a menu item
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
-    # return "This page is for editing menu item %s" % menu_id
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -419,9 +419,9 @@ def editMenuItem(restaurant_id, menu_id):
         return render_template('editmenuitem.html', item=item, restaurant_id=restaurant_id)
 
 
+# Delete a menu item
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
-    # return "This page is for deleting menu item %s" % menu_id
     if 'username' not in login_session:
         return redirect('/login')
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -437,6 +437,7 @@ def deleteMenuItem(restaurant_id, menu_id):
         return render_template('deletemenuitem.html', item=item, restaurant_id=restaurant_id)
 
 
+# JSON APIs to view Restaurant Information
 @app.route('/restaurants/JSON')
 def restaurantsJSON():
     restaurants = session.query(Restaurant).all()
