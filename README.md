@@ -1,4 +1,6 @@
 # Restaurant Menu System
+A restaurant menu system that allows for restaurants and menu items to be created, viewed, and modified on a python web server.
+
 ## Setup
 1. You must have python and flask installed.
 2. To setup the database run `python database_setup.py`. This will create a sqlite database. 
