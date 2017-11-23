@@ -231,8 +231,6 @@ def fbdisconnect():
 # Disconnect based on provider
 @app.route('/disconnect')
 def disconnect():
-    print "Make my mark"
-    print login_session
     if 'provider' in login_session:
         if login_session['provider'] == 'google':
             gdisconnect()
@@ -247,8 +245,6 @@ def disconnect():
         del login_session['provider']
         del login_session['access_token']
         flash("You have successfully been logged out.")
-        print "Beast Mode"
-        print login_session
         return redirect(url_for('showRestaurants'))
     else:
         flash("You were not logged in")
